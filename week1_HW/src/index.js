@@ -20,35 +20,69 @@ function createElement(tagName, props, ...children) {
 
 //
 
-let count = 0;
+const operatorFunctions = {
+  '': (x, y) => x || y,
+  '=': (x, y) => x || y,
+  '+': (x, y) => x + y,
+  '-': (x, y) => x - y,
+  '*': (x, y) => x * y,
+  '/': (x, y) => x / y,
+};
 
-function handleClick() {
-  count += 1;
-  render();
+function calculate(operator, accumulator, number) {
+  return operatorFunctions[operator](accumulator, number);
 }
 
-function handleClickNumber(value) {
-  count = value;
-  render();
-}
+const initialState = {
+  accumulator: 0,
+  number: 0,
+  operator: '',
 
-function render() {
+};
+
+function render({ accumulator, number, operator }) {
+  function handleClickReset() {
+    render(initialState);
+  }
+
+  function handleClickNumber(value) {
+    render({
+      accumulator,
+      number: number * 10 + value,
+      operator,
+    });
+  }
+
+  function handleClickOperator(value) {
+    render({
+      accumulator: calculate(operator, accumulator, number),
+      number: 0,
+      operator: value,
+    });
+  }
+
   const element = (
-    // eslint-disable-next-line react/jsx-filename-extension
-    <div id="hello" className="gretting">
-      <p>Hello, world!</p>
+    <div>
+      <h4>간단 계산기</h4>
+      <h4>{number || accumulator}</h4>
       <p>
-        <button type="button" onClick={handleClick}>
-          Click me!
-          ({count})
-        </button>
-      </p>
-      <p>
-        {[1, 2, 3].map((i) => (
+        {[1, 2, 3, 4, 5, 6, 7, 8, 9, 0].map((i) => (
           <button type="button" onClick={() => handleClickNumber(i)}>
             {i}
           </button>
         ))}
+      </p>
+      <p>
+        {['+', '-', '*', '/', '='].map((i) => (
+          <button type="button" onClick={() => handleClickOperator(i)}>
+            {i}
+          </button>
+        ))}
+      </p>
+      <p>
+        <button type="button" onClick={handleClickReset}>
+          Reset
+        </button>
       </p>
     </div>
   );
@@ -57,4 +91,4 @@ function render() {
   document.getElementById('app').appendChild(element);
 }
 
-render();
+render(initialState);
