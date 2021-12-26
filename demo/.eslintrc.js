@@ -25,7 +25,6 @@ module.exports = {
     Feature: 'readonly',
     Scenario: 'readonly',
     context: 'readonly',
-    given: 'readonly',
   },
   rules: {
     indent: ['error', 2],
@@ -49,12 +48,9 @@ module.exports = {
     'key-spacing': ['error', { mode: 'strict' }],
     'arrow-spacing': ['error', { before: true, after: true }],
     'jsx-a11y/label-has-associated-control': ['error', { assert: 'either' }],
-    'no-use-before-define': 'off',
     'linebreak-style': 'off',
-    'react/jsx-filename-extension': [1, { extensions: ['.js', '.jsx'] }],
+
     'react/prop-types': 'off',
     'react/react-in-jsx-scope': 'off',
-    'react/function-component-definition': 'off',
-    'react/eslint-disable-next-line react/jsx-no-bind': 'on',
   },
 };
