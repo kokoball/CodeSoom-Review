@@ -1,10 +1,16 @@
+import { createStore } from 'redux';
+
+// Redux action
+// -type (string)
+// -payload => object => {taskTitle}
+
 const initialState = {
   newId: 100,
   taskTitle: '',
   tasks: [],
 };
 
-export default function reducer(state = initialState, action) {
+function reducer(state = initialState, action) {
   if (action.type === 'updateTaskTitle') {
     return {
       ...state,
@@ -14,10 +20,6 @@ export default function reducer(state = initialState, action) {
 
   if (action.type === 'addTask') {
     const { newId, taskTitle, tasks } = state;
-
-    if (!taskTitle) {
-      return state;
-    }
 
     return {
       ...state,
@@ -29,11 +31,16 @@ export default function reducer(state = initialState, action) {
 
   if (action.type === 'deleteTask') {
     const { tasks } = state;
-    return ({
+
+    return {
       ...state,
       tasks: tasks.filter((task) => task.id !== action.payload.id),
-    });
+    };
   }
 
   return state;
 }
+
+const store = createStore(reducer);
+
+export default store;
