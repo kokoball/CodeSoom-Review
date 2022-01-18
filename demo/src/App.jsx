@@ -1,46 +1,27 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 
-import Page from './Page';
+import RestaurantsContainer from './RestaurantsContainer';
+import RestaurantsCreateContainer from './RestaurantsCreateContainer';
+
+import restaurants from '../fixtures/restaurants';
 
 import {
-  updateTaskTitle,
-  addTask,
-  deleteTask,
+  setRestaurants,
 } from './actions';
 
-function selector(state) {
-  return {
-    taskTitle: state.taskTitle,
-    tasks: state.tasks,
-  };
-}
-
 export default function App() {
-  const { taskTitle, tasks } = useSelector(selector);
-
   const dispatch = useDispatch();
 
-  function handleChangeTitle(event) {
-    dispatch(updateTaskTitle(event.target.value));
-  }
-
-  function handleClickAddTask() {
-    dispatch(addTask());
-  }
-
-  function handleClickDeleteTask(id) {
-    dispatch(deleteTask(id));
-  }
-
+  useEffect(() => {
+    dispatch(setRestaurants(restaurants));
+  }, []);
   return (
-    <Page
-      taskTitle={taskTitle}
-      onChangeTitle={handleChangeTitle}
-      onClickAddTask={handleClickAddTask}
-      tasks={tasks}
-      onClickDeleteTask={handleClickDeleteTask}
-    />
+    <div>
+      <h1>Restaurants</h1>
+      <RestaurantsContainer />
+      <RestaurantsCreateContainer />
+    </div>
   );
 }

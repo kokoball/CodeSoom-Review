@@ -1,21 +1,25 @@
-export function updateTaskTitle(taskTitle) {
+export function setRestaurants(restaurants) {
   return {
-    type: 'updateTaskTitle',
-    payload: taskTitle,
-  };
-}
-
-export function addTask() {
-  return {
-    type: 'addTask',
-  };
-}
-
-export function deleteTask(id) {
-  return {
-    type: 'deleteTask',
+    type: 'setRestaurants',
     payload: {
-      id,
+      restaurants,
     },
+  };
+}
+
+export function changeRestaurantField({ name, value }) {
+  return {
+    type: 'changeRestaurantField',
+    payload: {
+      name,
+      value,
+    },
+  };
+}
+
+// ToDo: delete this.
+export function addRestaurant() {
+  return {
+    type: 'addRestaurant',
   };
 }
